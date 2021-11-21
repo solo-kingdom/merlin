@@ -1,0 +1,8 @@
+#!/bin/sh
+# base config & source tools
+base="$(pwd)/$(dirname "$0")/.."
+cd "$base" || exit
+base="$(pwd)"
+. "$base/bin/tools.sh"
+
+python3 main.py "$@"
