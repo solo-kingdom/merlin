@@ -3,9 +3,10 @@ info:
   version: 0.0.1
 modules:
   global:
+    type: sample
     build:
-      type: sample
     package:
+      base: .
       exclude:
         - requirements
       rewrite:

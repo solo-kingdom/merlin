@@ -7,6 +7,8 @@ from common.common import logger
 
 PATH_PACKAGE = 'life/life.yml'
 K_MODULES = 'modules'
+K_MODULE = 'module'
+K_TYPE = 'type'
 STAGE_BUILD = 'build'
 STAGE_PACKAGE = 'package'
 STAGE_DEPLOY = 'deploy'
@@ -27,4 +29,8 @@ def config(stage=None):
     with open(PATH_PACKAGE, 'r', encoding='utf-8') as f:
         data = yaml.safe_load(f)
         modules = data.get(K_MODULES, [])
-        return list(map(lambda md: {'module': md[0], stage: md[1][stage]}, modules.items()))
+        return list(map(lambda md: {
+            K_MODULE: md[0],
+            stage: md[1][stage],
+            K_TYPE: md[1][K_TYPE]
+        }, modules.items()))
