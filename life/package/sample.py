@@ -13,7 +13,12 @@ def pack(module, cfg):
     logger.info('config: %s', cfg)
     base = cfg[K_BASE] if cfg[K_BASE] else module
     ensure_path(PATH_MERLIN)
-    exclude = ' '.join(['--exclude="' + i + '"' for i in cfg[K_EXCLUDE]]) if cfg[K_EXCLUDE] else ''
-    cmd = 'tar -cf %s.tar %s --exclude=".?*" %s -C %s' % (module, base, exclude, PATH_MERLIN)
+    exclude = cfg[K_EXCLUDE] if cfg[K_EXCLUDE] else []
+    fls = os.listdir(base)
+    fls = list(filter(lambda x: not x.startswith('.') and x not in exclude, fls))
+    logger.info('files=%s', fls)
+    include = (' ' + base + '/').join(fls)
+    cmd = 'tar -cf %s/%s.tar %s' % (PATH_MERLIN, module, include)
     logger.info('cmd=[%s]', cmd)
     assert os.system(cmd) == 0, 'package module %s failed. [config=%s]' % (module, str(cfg))
+    logger.info('package module success. [module=%s, target=%s/%s.tar]', module, PATH_MERLIN, module)
