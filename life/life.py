@@ -31,6 +31,6 @@ def config(stage=None):
         modules = data.get(K_MODULES, [])
         return list(map(lambda md: {
             K_MODULE: md[0],
-            stage: md[1][stage],
+            stage: md[1].get(stage, {}),
             K_TYPE: md[1][K_TYPE]
         }, modules.items()))

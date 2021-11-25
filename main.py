@@ -2,7 +2,7 @@
 from argparse import ArgumentParser
 
 from common.common import logger
-from life import package, build
+from life import package, build, deploy
 from model.subcommand import Subcommand
 
 subcommands: [str, Subcommand] = {}
@@ -17,6 +17,7 @@ def parse():
     subcommand = parser.add_subparsers(dest="subcommand", description="sub parser")
     add_module(subcommand, package())
     add_module(subcommand, build())
+    add_module(subcommand, deploy())
 
     args = parser.parse_args()
     if not args.subcommand:

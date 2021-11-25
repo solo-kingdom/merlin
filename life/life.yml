@@ -14,3 +14,5 @@ modules:
           to: install
         - from: requirements
           to: require
+    deploy:
+      package: global
