@@ -1,0 +1,15 @@
+info:
+  product: merlin
+  version: 0.0.1
+modules:
+  global:
+    build:
+      type: sample
+    package:
+      exclude:
+        - requirements
+      rewrite:
+        - from: install.sh
+          to: install
+        - from: requirements
+          to: require

@@ -1,3 +1,6 @@
 [submodule "bin/common"]
 	path = bin/common
 	url = git@github.com:solo-kingdom/sh-common.git
+[submodule "common"]
+	path = common
+	url = git@github.com:solo-kingdom/py-common.git
