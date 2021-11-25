@@ -1,0 +1,3 @@
+[submodule "bin/common"]
+	path = bin/common
+	url = git@github.com:solo-kingdom/sh-common.git
