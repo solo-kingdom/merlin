@@ -2,14 +2,14 @@
 __all__ = [
     'package',
     'build',
-    'deploy'
+    'publish'
 ]
 
 import argparse
 
 from life.build import build as bld
-from life.deploy import deploy as dpl
 from life.pack import pack
+from life.publish import publish as pub
 from model.subcommand import Subcommand
 
 
@@ -27,8 +27,8 @@ def package():
     return Subcommand(['pack', 'package'], resolve=resolve, do=pack, hlp='package subcommand')
 
 
-def deploy():
+def publish():
     def resolve(parser: argparse.ArgumentParser):
         parser.add_argument('-i', '--info', help='show module information')
 
-    return Subcommand(['deploy'], resolve=resolve, do=dpl, hlp='deploy subcommand')
+    return Subcommand(['pub', 'publish'], resolve=resolve, do=pub, hlp='publish subcommand')

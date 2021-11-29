@@ -1,4 +1,5 @@
 info:
+  space: merlin
   product: merlin
   version: 0.0.1
 modules:
@@ -6,13 +7,14 @@ modules:
     type: sample
     build:
     package:
+      # TODO base 默认为与模块同名文件夹
       base: .
-      exclude:
+      excludes:
         - requirements
-      rewrite:
-        - from: install.sh
-          to: install
-        - from: requirements
-          to: require
-    deploy:
-      package: global
+  install:
+    type: sample
+    build:
+    package:
+      base: .
+      includes:
+        - install.sh

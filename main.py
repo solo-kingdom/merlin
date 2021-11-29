@@ -1,9 +1,16 @@
 #!/bin/bash
+# coding: utf-8
+
+import logging
 from argparse import ArgumentParser
 
 from common.common import logger
-from life import package, build, deploy
+from life import package, build, publish
+from life.life import config
+from model.context import Context
 from model.subcommand import Subcommand
+
+logger.level(logging.DEBUG)
 
 subcommands: [str, Subcommand] = {}
 
@@ -17,17 +24,17 @@ def parse():
     subcommand = parser.add_subparsers(dest="subcommand", description="sub parser")
     add_module(subcommand, package())
     add_module(subcommand, build())
-    add_module(subcommand, deploy())
+    add_module(subcommand, publish())
 
     args = parser.parse_args()
     if not args.subcommand:
-        logger.error('subcommand not specified')
+        logger.error('subcommand not specified, use -h to get help.')
         exit(1)
     elif args.subcommand not in subcommands:
         logger.error('unknown subcommand. [subcommand={}]', args.subcommand)
         exit(1)
     else:
-        subcommands[args.subcommand].do(args)
+        subcommands[args.subcommand].do(Context(args, config()))
 
 
 def add_module(subcommand, mod: Subcommand):
