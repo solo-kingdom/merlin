@@ -1,7 +1,12 @@
 # coding: utf-8
+import json
+import os
 from datetime import datetime
 
 from constants.constants import *
+
+F_PACKAGE = 'package.json'
+F_PUBLISH = 'publish.json'
 
 
 class Context:
@@ -9,8 +14,15 @@ class Context:
         self.args = args
         self.config = Config(config)
         self.start = datetime.now()
-        self.pack = PackContext()
+        self.pack = PackContext(config)
         self.publish = PublishContext()
+
+    def finish(self):
+        self.pack.finish(self.start)
+        self.publish.finish(self.start)
+
+    def load(self):
+        pass
 
 
 class Packaged:
@@ -18,17 +30,46 @@ class Packaged:
         self.module = module
         self.file = file
 
+    def to_dict(self):
+        return {
+            'module': self.module,
+            'file': self.file
+        }
+
 
 class PackContext:
-    def __init__(self):
+    def __init__(self, config):
         self.packages: list[Packaged] = []
+        self.info = config.info
 
     def add(self, module, file):
         self.packages.append(Packaged(module, file))
 
+    def finish(self, start):
+        if self.packages:
+            data = {
+                K_START: str(start),
+                K_END: str(datetime.now()),
+                K_INFO: self.info.to_dict(),
+                K_PACKAGES: [i.to_dict() for i in self.packages]
+            }
+            with open(self.output(), 'w') as f:
+                json.dump(data, f, indent=4)
+
+    def load(self):
+        with open(self.output(), 'r') as f:
+            data = json.load(f)
+            self.info = Info(data[K_INFO])
+            for package in data[K_PACKAGES]:
+                self.add(**package)
+
+    def output(self):
+        return os.path.join(PATH_MERLIN, F_PACKAGE)
+
 
 class PublishContext:
-    pass
+    def finish(self, start):
+        pass
 
 
 class Config:
@@ -48,3 +89,10 @@ class Info:
         self.space = info[K_SPACE]
         self.product = info[K_PRODUCT]
         self.version = info[K_VERSION]
+
+    def to_dict(self):
+        return {
+            'space': self.space,
+            'product': self.product,
+            'version': self.version
+        }

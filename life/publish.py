@@ -8,8 +8,6 @@ from model.context import Context
 
 
 def publish(context: Context):
-    cfg = context.config.config
-    ci = context.config.info
     logger.debug('publish. [arg=%s, config=%s]', context.args, cfg)
 
     for module in context.config.modules().items():

@@ -35,7 +35,9 @@ def parse():
         logger.error('unknown subcommand. [subcommand={}]', args.subcommand)
         exit(1)
     else:
-        subcommands[args.subcommand].do(Context(args, config()))
+        context = Context(args, config())
+        subcommands[args.subcommand].do(context)
+        context.finish()
 
 
 def add_module(subcommand, mod: Subcommand):
