@@ -2,12 +2,14 @@
 __all__ = [
     'package',
     'build',
-    'publish'
+    'publish',
+    'clean'
 ]
 
 import argparse
 
 from life.build import build as bld
+from life.clean import clean as cln
 from life.pack import pack
 from life.publish import publish as pub
 from model.subcommand import Subcommand
@@ -32,3 +34,10 @@ def publish():
         parser.add_argument('-i', '--info', help='show module information')
 
     return Subcommand(['pub', 'publish'], resolve=resolve, do=pub, hlp='publish subcommand')
+
+
+def clean():
+    def resolve(parser: argparse.ArgumentParser):
+        parser.add_argument('-i', '--info', help='show module information')
+
+    return Subcommand(['clean'], resolve=resolve, do=cln, hlp='clean subcommand')

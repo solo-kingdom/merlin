@@ -18,3 +18,4 @@ STAGE_PACKAGE = 'package'
 STAGE_PUBLISH = 'dpl'
 
 TYPE_SAMPLE = 'sample'
+TYPE_NO_PACK = 'no-pack'

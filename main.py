@@ -5,7 +5,7 @@ import logging
 from argparse import ArgumentParser
 
 from common.common import logger
-from life import package, build, publish
+from life import package, build, publish, clean
 from life.life import config
 from model.context import Context
 from model.subcommand import Subcommand
@@ -25,6 +25,7 @@ def parse():
     add_module(subcommand, package())
     add_module(subcommand, build())
     add_module(subcommand, publish())
+    add_module(subcommand, clean())
 
     args = parser.parse_args()
     if not args.subcommand:

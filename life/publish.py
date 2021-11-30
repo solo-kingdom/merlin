@@ -3,13 +3,12 @@ import os
 
 from common.common import logger
 from common.common.request.file import upload
-from life.life import config, STAGE_PUBLISH, K_PRODUCT, K_INFO, K_VERSION, K_MODULES, K_SPACE
-from life.package.sample import PATH_MERLIN
+from constants.constants import *
 
 
-def publish(args):
-    logger.info('arg: %s, config: %s', args, config(STAGE_PUBLISH))
-    cfg = config()
+def publish(context):
+    logger.debug('publish. [arg=%s, config=%s]', context.args, context.config)
+    cfg = context.config
     space = cfg[K_INFO][K_SPACE]
     product = cfg[K_INFO][K_PRODUCT]
     version = cfg[K_INFO][K_VERSION]

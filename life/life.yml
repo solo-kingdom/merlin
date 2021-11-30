@@ -12,7 +12,7 @@ modules:
       excludes:
         - requirements
   install:
-    type: sample
+    type: no-pack
     build:
     package:
       base: .
