@@ -1,7 +1,7 @@
 # coding: utf-8
 from datetime import datetime
 
-from constants.constants import K_MODULES
+from constants.constants import *
 
 
 class Context:
@@ -34,9 +34,17 @@ class PublishContext:
 class Config:
     def __init__(self, config):
         self.config = config
+        self.info = Info(config[K_INFO])
 
     def modules(self):
         return self.config.get(K_MODULES, [])
 
     def module(self, module):
         return self.config.get(K_MODULES, )
+
+
+class Info:
+    def __init__(self, info):
+        self.space = info[K_SPACE]
+        self.product = info[K_PRODUCT]
+        self.version = info[K_VERSION]
