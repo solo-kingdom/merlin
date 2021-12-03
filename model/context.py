@@ -3,6 +3,7 @@ import json
 import os
 from datetime import datetime
 
+from common.common import logger
 from constants.constants import *
 
 F_PACKAGE = 'package.json'
@@ -22,7 +23,7 @@ class Context:
         self.publish.finish(self.start)
 
     def load(self):
-        pass
+        self.pack.load()
 
 
 class Packaged:
@@ -36,11 +37,14 @@ class Packaged:
             'file': self.file
         }
 
+    def __str__(self):
+        return json.dumps(self.to_dict())
+
 
 class PackContext:
     def __init__(self, config):
         self.packages: list[Packaged] = []
-        self.info = config.info
+        self.info = Info(config[K_INFO])
 
     def add(self, module, file):
         self.packages.append(Packaged(module, file))
@@ -60,8 +64,11 @@ class PackContext:
         with open(self.output(), 'r') as f:
             data = json.load(f)
             self.info = Info(data[K_INFO])
+            self.packages = []
             for package in data[K_PACKAGES]:
                 self.add(**package)
+            logger.debug('load pack context. [info=%s, packages=%s]',
+                         self.info, self.packages)
 
     def output(self):
         return os.path.join(PATH_MERLIN, F_PACKAGE)
@@ -96,3 +103,6 @@ class Info:
             'product': self.product,
             'version': self.version
         }
+
+    def __str__(self):
+        return json.dumps(self.to_dict())
