@@ -1,4 +1,6 @@
 # coding: utf-8
+import json
+
 from common.common import logger
 from common.common.file import ensure_path
 from constants.constants import *
@@ -20,3 +22,4 @@ def pack(context: Context):
             NoPack(context, pc).do()
         else:
             logger.error('unknown package type. [type=%s]', tp)
+    logger.debug('package done. [packaged=%s]', json.dumps(context.pack.packages, default=vars))

@@ -36,10 +36,18 @@ class PackUtils:
         return fls
 
 
-class TarPack:
+class Pack:
     def __init__(self, context: Context, config: PackConfig):
         self.config = config
         self.context = context
+
+    def record(self, module, file):
+        self.context.pack.add(module, file)
+
+
+class TarPack(Pack):
+    def __init__(self, context: Context, config: PackConfig):
+        super().__init__(context, config)
 
     def do(self):
         module = self.config.module
@@ -49,20 +57,19 @@ class TarPack:
         logger.debug('pack command. [cmd=%s]', cmd)
         assert os.system(cmd) == 0, 'package module %s failed. [config=%s]' % (module, str(self.config))
         logger.info('package module success. [module=%s, target=%s]', module, target)
-        self.context.pack.add(module, target)
+        self.record(module, target)
 
 
-class NoPack:
+class NoPack(Pack):
     def __init__(self, context: Context, config: PackConfig):
-        self.context = context
-        self.config = config
+        super().__init__(context, config)
 
     def do(self):
-        includes = PackUtils.list_files(self.config)
-        done = []
-        for include in includes:
-            cmd = 'cp -r %s %s' % (PackUtils.retrieve_path(self.config, include), PATH_MERLIN)
-            logger.debug('copy target. [cmd=%s]', cmd)
-            assert os.system(cmd) == 0, \
-                'copy target failed. [fail=%s, done=%s, total=%s]' % (include, done, includes)
-            done.append(include)
+        assert len(self.config.includes) == 1, \
+            'no pack type module must set one item in includes. [current=%s]' % self.config.includes
+
+        include = self.config.includes[0]
+        cmd = 'cp -r %s %s' % (PackUtils.retrieve_path(self.config, include), PATH_MERLIN)
+        logger.debug('copy target. [cmd=%s]', cmd)
+        assert os.system(cmd) == 0, 'copy target failed. [fail=%s]' % include
+        self.record(self.config.module, os.path.join(PATH_MERLIN, include))
