@@ -22,3 +22,6 @@ STAGE_PUBLISH = 'dpl'
 
 TYPE_SAMPLE = 'sample'
 TYPE_NO_PACK = 'no-pack'
+
+URL_EUBALAENA_PUB = 'http://eubalaena.srv.wii.pub/api/v1/package'
+URL_META_PUB = 'http://meta.srv.wii.pub/upload'

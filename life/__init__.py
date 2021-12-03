@@ -32,6 +32,8 @@ def package():
 def publish():
     def resolve(parser: argparse.ArgumentParser):
         parser.add_argument('-i', '--info', help='show module information')
+        parser.add_argument('--meta', action='store_true', help='publish to meta')
+        parser.add_argument('-m', '--module', help='specify module')
 
     return Subcommand(['pub', 'publish'], resolve=resolve, do=pub, hlp='publish subcommand')
 
