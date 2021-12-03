@@ -61,14 +61,17 @@ class PackContext:
                 json.dump(data, f, indent=4)
 
     def load(self):
-        with open(self.output(), 'r') as f:
-            data = json.load(f)
-            self.info = Info(data[K_INFO])
-            self.packages = []
-            for package in data[K_PACKAGES]:
-                self.add(**package)
-            logger.debug('load pack context. [info=%s, packages=%s]',
-                         self.info, self.packages)
+        if os.path.exists(self.output()):
+            with open(self.output(), 'r') as f:
+                data = json.load(f)
+                self.info = Info(data[K_INFO])
+                self.packages = []
+                for package in data[K_PACKAGES]:
+                    self.add(**package)
+                logger.debug('load pack context. [info=%s, packages=%s]',
+                             self.info, self.packages)
+        else:
+            logger.error('%s not exists', self.output())
 
     def output(self):
         return os.path.join(PATH_MERLIN, F_PACKAGE)
