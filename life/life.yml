@@ -10,9 +10,9 @@ modules:
       # TODO base 默认为与模块同名文件夹
       base: .
       excludes:
-        - requirements
         - '*.git'
         - '*.gitignore'
+        - '*.DS_Store'
   install:
     type: no-pack
     build:

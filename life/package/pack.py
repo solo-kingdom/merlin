@@ -8,7 +8,7 @@ from model.context import Context
 
 class PackConfig:
     def __init__(self, module: str, base: str = '.', dest: str = '',
-                 includes: list[str] = None, excludes: list[str] = None, *args, **kwargs):
+                 includes=None, excludes=None, *args, **kwargs):
         self.module = module
         self.base: str = base
         self.includes: list[str] = includes if includes is not None else []

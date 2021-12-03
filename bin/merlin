@@ -1,5 +1,6 @@
 #!/bin/sh
 # base config & source tools
+wkd="$(pwd)"
 fp="$(
   cd "$(dirname "$0")" || exit
   pwd -P
@@ -8,5 +9,8 @@ cd "$fp/.." || exit
 base="$(pwd)"
 
 . "$base/bin/common/tools.sh"
+. "$base/.venv/bin/activate"
 
-python3 main.py "$@"
+cd "$wkd" || exit
+export PYTHONCLASS="$base"
+python3 "$base/main.py" "$@"

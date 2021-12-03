@@ -17,6 +17,8 @@ PROFILE_ZSH="$HOME/.zshrc"
 PROFILE_BASH="$HOME/.bash_profile"
 PROFILE_BASH_RC="$HOME/.bashrc"
 
+set -x
+
 [ ! -e "$MERLIN_HOME" ] && mkdir -p "$MERLIN_HOME"
 cd "$MERLIN_HOME" || exit
 wget -c $D_URL -qO - | tar -xz
@@ -34,3 +36,8 @@ else
     echo "export PATH=\$PATH:$MERLIN_BIN" >>"$PROFILE_BASH_RC"
   fi
 fi
+
+pip3 install virtualenv
+virtualenv -p python3 .venv || exit
+. .venv/bin/activate || exit
+pip install -r requirements
