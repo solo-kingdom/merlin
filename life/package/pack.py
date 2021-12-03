@@ -1,7 +1,7 @@
 # coding: utf-8
 import os
 
-from common.common import logger
+from common import logger
 from constants.constants import PATH_MERLIN
 from model.context import Context
 

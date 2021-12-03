@@ -1,8 +1,8 @@
 # coding: utf-8
 import json
 
-from common.common import logger
-from common.common.request.file import upload
+from common import logger
+from common.request.file import upload
 from model.context import Context
 
 

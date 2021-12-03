@@ -1,5 +1,5 @@
 # coding: utf-8
-from common.common import logger
+from common import logger
 from life.life import config, STAGE_BUILD
 
 

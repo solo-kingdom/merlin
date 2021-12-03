@@ -3,7 +3,7 @@ import json
 import os
 from datetime import datetime
 
-from common.common import logger
+from common import logger
 from constants.constants import *
 
 F_PACKAGE = 'package.json'

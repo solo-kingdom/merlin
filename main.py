@@ -4,7 +4,7 @@
 import logging
 from argparse import ArgumentParser
 
-from common.common import logger
+from common import logger
 from life import package, build, publish, clean
 from life.life import config
 from model.context import Context

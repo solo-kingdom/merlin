@@ -3,7 +3,7 @@ import os
 
 import yaml
 
-from common.common import logger
+from common import logger
 from constants.constants import *
 
 

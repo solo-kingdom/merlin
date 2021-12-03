@@ -1,8 +1,8 @@
 # coding: utf-8
 import json
 
-from common.common import logger
-from common.common.file import ensure_path
+from common import logger
+from common.file import ensure_path
 from constants.constants import *
 from life.package.pack import PackConfig, TarPack, NoPack
 from model.context import Context
