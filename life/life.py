@@ -24,6 +24,8 @@ def info():
 
 
 def config():
-    assert os.path.exists(PATH_PACKAGE), 'config file package.yml not exists'
+    if not os.path.exists(PATH_PACKAGE):
+        logger.error('merlin project not found')
+        exit(1)
     with open(PATH_PACKAGE, 'r', encoding='utf-8') as f:
         return yaml.safe_load(f)
