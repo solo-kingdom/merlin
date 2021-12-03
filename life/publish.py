@@ -20,7 +20,7 @@ def publish(context: Context):
         info = module.module, ci.space, ci.product, module.module, ci.version, module.file
         logger.info('prepare to upload package. [name=%s, space=%s, product=%s, '
                     'module=%s, version=%s, file=%s]', *info)
-        dst = URL_META_PUB + '/' + ci.space if not context.args.meta else URL_EUBALAENA_PUB
+        dst = URL_META_PUB + '/' + ci.space if context.args.meta else URL_EUBALAENA_PUB
         assert upload(dst, {
             'space': ci.space,
             'product': ci.product,
