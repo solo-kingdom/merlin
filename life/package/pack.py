@@ -53,7 +53,8 @@ class TarPack(Pack):
         module = self.config.module
         includes = ' '.join(PackUtils.list_files(self.config))
         target = '%s/%s.tar.gz' % (PATH_MERLIN, module)
-        cmd = 'tar -czf %s %s' % (target, includes)
+        excludes = ' '.join(['--exclude ' + i for i in self.config.excludes])
+        cmd = 'tar -czf %s %s %s' % (target, excludes, includes)
         logger.debug('pack command. [cmd=%s]', cmd)
         assert os.system(cmd) == 0, 'package module %s failed. [config=%s]' % (module, str(self.config))
         logger.info('package module success. [module=%s, target=%s]', module, target)

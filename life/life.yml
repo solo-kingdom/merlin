@@ -3,7 +3,7 @@ info:
   product: merlin
   version: 0.0.1
 modules:
-  global:
+  merlin:
     type: sample
     build:
     package:
@@ -11,6 +11,8 @@ modules:
       base: .
       excludes:
         - requirements
+        - '*.git'
+        - '*.gitignore'
   install:
     type: no-pack
     build:
